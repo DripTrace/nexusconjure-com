@@ -14,10 +14,11 @@ const Navigation = ({ user }: Props) => {
 		<div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-10">
 			<aside className="flex items-center gap-2">
 				<Image
-					src={"./assets/nexusconjure-logo.svg"}
+					src={"./assets/nexusconjure-logo-inverted.svg"}
 					width={40}
 					height={40}
 					alt="plur logo"
+					className="rounded dark:filter dark:invert"
 				/>
 				<span className="text-xl font-bold"> NexusConjure.</span>
 			</aside>
