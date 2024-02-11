@@ -44,7 +44,7 @@ export const pricingCards = [
 		duration: "month",
 		highlight: "Key features",
 		features: ["Rebilling", "24/7 Support team"],
-		priceId: "price_1Oh5sNGPaa0QUDfnTLSaIYFR",
+		priceId: `${process.env.STRIPE_PRICE_ID_2}`,
 	},
 	{
 		title: "Basic",
@@ -53,12 +53,12 @@ export const pricingCards = [
 		duration: "month",
 		highlight: "Everything in Starter, plus",
 		features: ["Unlimited Sub accounts", "Unlimited Team members"],
-		priceId: "price_1Oh5X0GPaa0QUDfnATA57adG",
+		priceId: `${process.env.STRIPE_PRICE_ID_1}`,
 	},
 ];
 
 export const addOnProducts = [
-	{ title: "Priority Support", id: "prod_PW8WnP4skmfDH6" },
+	{ title: "Priority Support", id: `${process.env.STRIPE_PRODUCT_ID}` },
 ];
 
 export const icons = [
