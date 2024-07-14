@@ -8,10 +8,11 @@
 		"start": "next start",
 		"lint": "next lint",
 		"postinstall": "prisma generate",
-		"stripewebhook": "stripe listen --forward-to localhost:3000/api/stripe/webhook",
+		"stripewebhook": "stripe listen --forward-to localhost:69/api/stripe/webhook",
 		"eventtrigger": "stripe trigger payment_intent.succeeded",
 		"mysqlinstall": "bunx prisma init --datasource-provider mysql",
-		"setdb": "prisma db pull"
+		"setdb": "prisma db pull",
+		"vercel-build": "prisma generate && prisma migrate deploy && next build"
 	},
 	"dependencies": {
 		"@builder.io/dev-tools": "^0.2.11",
