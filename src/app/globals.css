@@ -97,6 +97,9 @@ B (255 */
 	body {
 		@apply bg-background text-foreground;
 	}
+	.default-placeholder {
+		@apply flex items-center justify-center text-[20rem] overline font-extrabold;
+	}
 }
 
 .dotPattern {
