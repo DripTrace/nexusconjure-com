@@ -12,7 +12,10 @@
 		"eventtrigger": "stripe trigger payment_intent.succeeded",
 		"mysqlinstall": "bunx prisma init --datasource-provider mysql",
 		"setdb": "prisma db pull",
-		"vercel-build": "prisma generate && prisma migrate deploy && next build"
+		"vercel-build": "prisma generate && prisma migrate deploy && next build",
+		"create-migrate": "prisma migrate dev --name init",
+		"migrate": "prisma migrate deploy",
+		"view-db": "prisma studio"
 	},
 	"dependencies": {
 		"@builder.io/dev-tools": "^0.2.11",
@@ -21,7 +24,7 @@
 		"@clerk/nextjs": "^4.29.1",
 		"@clerk/themes": "^1.7.9",
 		"@hookform/resolvers": "^3.3.3",
-		"@prisma/client": "^5.7.1",
+		"@prisma/client": "^5.17.0",
 		"@radix-ui/react-accordion": "^1.1.2",
 		"@radix-ui/react-alert-dialog": "^1.0.5",
 		"@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -64,7 +67,7 @@
 		"lucide-react": "^0.303.0",
 		"next": "14.0.4",
 		"next-themes": "^0.2.1",
-		"prisma": "^5.7.1",
+		"prisma": "^5.17.0",
 		"react": "^18",
 		"react-beautiful-dnd": "^13.1.1",
 		"react-day-picker": "^8.10.0",
