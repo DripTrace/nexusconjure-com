@@ -579,9 +579,12 @@ const AlertsPage: React.FC = () => {
 		phone: "",
 		reason: "",
 	});
+	const [smsOptIn, setSmsOptIn] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [errors, setErrors] = useState<Partial<FormData>>({});
+	const [privacyPolicyAgreed, setPrivacyPolicyAgreed] = useState(false);
+	const [termsOfServiceAgreed, setTermsOfServiceAgreed] = useState(false);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -592,6 +595,10 @@ const AlertsPage: React.FC = () => {
 	const handleSelectChange = (value: string) => {
 		setFormData((prev) => ({ ...prev, reason: value }));
 		validateField("reason", value);
+	};
+
+	const handleSmsOptInChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSmsOptIn(e.target.checked);
 	};
 
 	const validateField = (name: string, value: string) => {
@@ -627,6 +634,18 @@ const AlertsPage: React.FC = () => {
 			return;
 		}
 
+		if (!smsOptIn) {
+			setSubmitMessage("Please opt-in to receive SMS alerts.");
+			return;
+		}
+
+		if (!privacyPolicyAgreed || !termsOfServiceAgreed) {
+			setSubmitMessage(
+				"Please agree to both the Privacy Policy and Terms of Service."
+			);
+			return;
+		}
+
 		setIsSubmitting(true);
 		setSubmitMessage("");
 
@@ -636,7 +655,12 @@ const AlertsPage: React.FC = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify({
+					...formData,
+					smsOptIn,
+					privacyPolicyAgreed,
+					termsOfServiceAgreed,
+				}),
 			});
 
 			if (response.ok) {
@@ -644,6 +668,9 @@ const AlertsPage: React.FC = () => {
 					"Registration successful! Check your phone for a confirmation message."
 				);
 				setFormData({ name: "", email: "", phone: "", reason: "" });
+				setSmsOptIn(false);
+				setPrivacyPolicyAgreed(false);
+				setTermsOfServiceAgreed(false);
 			} else {
 				setSubmitMessage("Registration failed. Please try again.");
 			}
@@ -659,167 +686,251 @@ const AlertsPage: React.FC = () => {
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
-			className="p-8 bg-background text-foreground"
+			className="p-8 bg-background text-foreground size-full flex items-center justify-center"
 		>
-			<h1 className="text-4xl font-bold mb-8 text-primary">
-				Register for Alerts
-			</h1>
-			<Form.Root onSubmit={handleSubmit} className="space-y-4">
-				<Form.Field name="name">
-					<Form.Label className="block text-sm font-medium text-gray-700">
-						Name
-					</Form.Label>
-					<Form.Control asChild>
-						<input
-							type="text"
-							required
-							className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-							value={formData.name}
-							onChange={handleInputChange}
-							name="name"
-							title="Enter your full name"
-						/>
-					</Form.Control>
-					{errors.name && (
-						<p className="text-red-500 text-xs mt-1">
-							{errors.name}
-						</p>
-					)}
-				</Form.Field>
-				<Form.Field name="email">
-					<Form.Label className="block text-sm font-medium text-gray-700">
-						Email
-					</Form.Label>
-					<Form.Control asChild>
-						<input
-							type="email"
-							required
-							className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-							value={formData.email}
-							onChange={handleInputChange}
-							name="email"
-							title="Enter your email address"
-						/>
-					</Form.Control>
-					{errors.email && (
-						<p className="text-red-500 text-xs mt-1">
-							{errors.email}
-						</p>
-					)}
-				</Form.Field>
-				<Form.Field name="phone">
-					<Form.Label className="block text-sm font-medium text-gray-700">
-						Phone Number
-					</Form.Label>
-					<Form.Control asChild>
-						<input
-							type="tel"
-							required
-							className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-							value={formData.phone}
-							onChange={handleInputChange}
-							name="phone"
-							title="Enter your phone number"
-						/>
-					</Form.Control>
-					{errors.phone && (
-						<p className="text-red-500 text-xs mt-1">
-							{errors.phone}
-						</p>
-					)}
-				</Form.Field>
-				<Form.Field name="reason">
-					<Form.Label className="block text-sm font-medium text-gray-700">
-						Reason for Platform Use
-					</Form.Label>
-					<Select.Root onValueChange={handleSelectChange}>
-						<Select.Trigger
-							className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 bg-blue-300"
-							aria-label="Select reason for platform use"
-						>
-							<Select.Value placeholder="Select a reason" />
-							<Select.Icon>
-								<ChevronDown className="ml-2 h-4 w-4" />
-							</Select.Icon>
-						</Select.Trigger>
-						<Select.Portal>
-							<Select.Content className="overflow-hidden bg-white rounded-md shadow-lg">
-								<Select.ScrollUpButton className="flex items-center justify-center h-[25px] bg-blue-400 text-violet11 cursor-default">
-									<ChevronDown className="rotate-180" />
-								</Select.ScrollUpButton>
-								<Select.Viewport className="p-2">
-									{reasonOptions.map((category) => (
-										<Select.Group key={category.value}>
-											<Select.Label className="px-8 py-2 text-sm bg-blue-400 font-bold text-gray-500">
-												{category.label}
-											</Select.Label>
-											{category.children.map((option) => (
-												<Select.Item
-													key={option.value}
-													value={option.value}
-													className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100 cursor-default select-none outline-none"
-												>
-													<Select.ItemText>
-														{option.label}
-													</Select.ItemText>
-													<Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-														<svg
-															width="15"
-															height="15"
-															viewBox="0 0 15 15"
-															fill="none"
-															xmlns="http://www.w3.org/2000/svg"
+			<div className="max-w-[60rem]">
+				<h1 className="text-4xl font-bold mb-8 text-primary">
+					Register for Alerts
+				</h1>
+				<Form.Root onSubmit={handleSubmit} className="space-y-4">
+					<Form.Field name="name">
+						<Form.Label className="block text-sm font-medium text-gray-300">
+							Name
+						</Form.Label>
+						<Form.Control asChild>
+							<input
+								type="text"
+								required
+								className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 bg-blue-200 text-gray-900"
+								value={formData.name}
+								onChange={handleInputChange}
+								name="name"
+								title="Enter your full name"
+							/>
+						</Form.Control>
+						{errors.name && (
+							<p className="text-red-500 text-xs mt-1">
+								{errors.name}
+							</p>
+						)}
+					</Form.Field>
+					<Form.Field name="email">
+						<Form.Label className="block text-sm font-medium text-gray-300">
+							Email
+						</Form.Label>
+						<Form.Control asChild>
+							<input
+								type="email"
+								required
+								className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 bg-blue-200 text-gray-900"
+								value={formData.email}
+								onChange={handleInputChange}
+								name="email"
+								title="Enter your email address"
+							/>
+						</Form.Control>
+						{errors.email && (
+							<p className="text-red-500 text-xs mt-1">
+								{errors.email}
+							</p>
+						)}
+					</Form.Field>
+					<Form.Field name="phone">
+						<Form.Label className="block text-sm font-medium text-gray-300">
+							Phone Number
+						</Form.Label>
+						<Form.Control asChild>
+							<input
+								type="tel"
+								required
+								className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 bg-blue-200 text-gray-900"
+								value={formData.phone}
+								onChange={handleInputChange}
+								name="phone"
+								title="Enter your phone number"
+							/>
+						</Form.Control>
+						{errors.phone && (
+							<p className="text-red-500 text-xs mt-1">
+								{errors.phone}
+							</p>
+						)}
+					</Form.Field>
+					<Form.Field name="reason">
+						<Form.Label className="block text-sm font-medium text-gray-300">
+							Reason for Platform Use
+						</Form.Label>
+						<Select.Root onValueChange={handleSelectChange}>
+							<Select.Trigger
+								className="mt-1 py-2 flex items-center justify-center w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 bg-blue-200 text-blue-800"
+								aria-label="Select reason for platform use"
+							>
+								<Select.Value placeholder="Select a reason" />
+								<Select.Icon>
+									<ChevronDown className="ml-2 h-4 w-4" />
+								</Select.Icon>
+							</Select.Trigger>
+							<Select.Portal>
+								<Select.Content className="overflow-hidden bg-white rounded-md shadow-lg">
+									<Select.ScrollUpButton className="flex items-center justify-center h-[25px] bg-blue-200 text-blue-800 cursor-default">
+										<ChevronDown className="rotate-180" />
+									</Select.ScrollUpButton>
+									<Select.Viewport className="p-2">
+										{reasonOptions.map((category) => (
+											<Select.Group key={category.value}>
+												<Select.Label className="px-8 py-2 text-sm bg-blue-200 font-bold text-blue-800">
+													{category.label}
+												</Select.Label>
+												{category.children.map(
+													(option) => (
+														<Select.Item
+															key={option.value}
+															value={option.value}
+															className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100 cursor-default select-none outline-none"
 														>
-															<path
-																d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
-																fill="currentColor"
-																fillRule="evenodd"
-																clipRule="evenodd"
-															></path>
-														</svg>
-													</Select.ItemIndicator>
-												</Select.Item>
-											))}
-										</Select.Group>
-									))}
-								</Select.Viewport>
-								<Select.ScrollDownButton className="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
-									<ChevronDown />
-								</Select.ScrollDownButton>
-							</Select.Content>
-						</Select.Portal>
-					</Select.Root>
-					{errors.reason && (
-						<p className="text-red-500 text-xs mt-1">
-							{errors.reason}
-						</p>
-					)}
-				</Form.Field>
-				<Form.Submit asChild>
-					<motion.button
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
-						className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md shadow-lg flex items-center justify-center"
-						disabled={isSubmitting}
-						type="submit"
-						title="Submit registration form"
+															<Select.ItemText>
+																{option.label}
+															</Select.ItemText>
+															<Select.ItemIndicator className="absolute left-2 inline-flex items-center">
+																<svg
+																	width="15"
+																	height="15"
+																	viewBox="0 0 15 15"
+																	fill="none"
+																	xmlns="http://www.w3.org/2000/svg"
+																>
+																	<path
+																		d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+																		fill="currentColor"
+																		fillRule="evenodd"
+																		clipRule="evenodd"
+																	></path>
+																</svg>
+															</Select.ItemIndicator>
+														</Select.Item>
+													)
+												)}
+											</Select.Group>
+										))}
+									</Select.Viewport>
+									<Select.ScrollDownButton className="flex items-center justify-center h-[25px] bg-white text-blue-800 cursor-default">
+										<ChevronDown />
+									</Select.ScrollDownButton>
+								</Select.Content>
+							</Select.Portal>
+						</Select.Root>
+						{errors.reason && (
+							<p className="text-red-500 text-xs mt-1">
+								{errors.reason}
+							</p>
+						)}
+					</Form.Field>
+					<Form.Field name="smsOptIn">
+						<div className="flex items-center">
+							<input
+								title="Agree to receive SMS alerts"
+								type="checkbox"
+								id="smsOptIn"
+								checked={smsOptIn}
+								onChange={(e) => setSmsOptIn(e.target.checked)}
+								className="mr-2"
+							/>
+							<Form.Label
+								htmlFor="smsOptIn"
+								className="text-sm text-gray-300"
+							>
+								I agree to receive SMS alerts, including
+								marketing messages, updates, and notifications.
+								Message and data rates may apply. You can opt
+								out at any time by replying STOP.
+							</Form.Label>
+						</div>
+					</Form.Field>
+
+					<Form.Field name="privacyPolicy">
+						<div className="flex items-center">
+							<input
+								title="Agree to the Privacy"
+								type="checkbox"
+								id="privacyPolicy"
+								checked={privacyPolicyAgreed}
+								onChange={(e) =>
+									setPrivacyPolicyAgreed(e.target.checked)
+								}
+								className="mr-2"
+							/>
+							<Form.Label
+								htmlFor="privacyPolicy"
+								className="text-sm text-gray-300"
+							>
+								I agree to the{" "}
+								<a
+									href="/privacy"
+									className="text-primary hover:underline"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Privacy Policy
+								</a>
+							</Form.Label>
+						</div>
+					</Form.Field>
+
+					<Form.Field name="termsOfService">
+						<div className="flex items-center">
+							<input
+								title="Agree to the Terms of Service"
+								type="checkbox"
+								id="termsOfService"
+								checked={termsOfServiceAgreed}
+								onChange={(e) =>
+									setTermsOfServiceAgreed(e.target.checked)
+								}
+								className="mr-2"
+							/>
+							<Form.Label
+								htmlFor="termsOfService"
+								className="text-sm text-gray-300"
+							>
+								I agree to the{" "}
+								<a
+									href="/terms-of-service"
+									className="text-primary hover:underline"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Terms of Service
+								</a>
+							</Form.Label>
+						</div>
+					</Form.Field>
+
+					<Form.Submit asChild>
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md shadow-lg flex items-center justify-center"
+							disabled={isSubmitting}
+							type="submit"
+							title="Submit registration form"
+						>
+							{isSubmitting ? "Submitting..." : "Register"}
+							<Send className="ml-2 h-4 w-4" />
+						</motion.button>
+					</Form.Submit>
+				</Form.Root>
+				{submitMessage && (
+					<p
+						className={`mt-4 text-center text-sm font-medium ${
+							submitMessage.includes("successful")
+								? "text-green-600"
+								: "text-red-600"
+						}`}
 					>
-						{isSubmitting ? "Submitting..." : "Register"}
-						<Send className="ml-2 h-4 w-4" />
-					</motion.button>
-				</Form.Submit>
-			</Form.Root>
-			{submitMessage && (
-				<p
-					className={`mt-4 text-center text-sm font-medium ${
-						submitMessage.includes("successful")
-							? "text-green-600"
-							: "text-red-600"
-					}`}
-				>
-					{submitMessage}
-				</p>
-			)}
+						{submitMessage}
+					</p>
+				)}
+			</div>
 		</motion.div>
 	);
 };
