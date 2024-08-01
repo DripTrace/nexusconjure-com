@@ -580,6 +580,7 @@ interface FormData {
 	file?: File;
 	privacyPolicyOptIn: boolean;
 	termsOfServiceOptIn: boolean;
+	promotionalOptIn: boolean;
 }
 
 const AnimatedBox = () => {
@@ -601,30 +602,31 @@ const AnimatedBox = () => {
 
 const AlertsPage: React.FC = () => {
 	const smsTooltipContent = `
-    Receive important alerts via SMS.
+    Receive important alerts, 2FA, customer support, account notifications, event updates, and targeted marketing via SMS.
     
     You can opt out at any time by:
     • Texting "STOP-TEXT" to our number
     • Updating your preferences in your account settings
-  `;
+    `;
 
 	const emailTooltipContent = `
-    Receive updates and newsletters via email.
+    Receive updates, newsletters, and promotional content via email.
     
     You can opt out at any time by:
     • Texting "STOP-EMAIL" to our number
     • Updating your preferences in your account settings
-  `;
+    `;
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		email: "",
 		phone: "",
 		reason: "",
 		smsOptIn: false,
-		emailOptIn: false,
+		emailOptIn: true,
 		availability: "",
 		privacyPolicyOptIn: false,
 		termsOfServiceOptIn: false,
+		promotionalOptIn: false,
 	});
 	const [file, setFile] = useState<File | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -656,6 +658,11 @@ const AlertsPage: React.FC = () => {
 	const validateField = (name: string, value: any) => {
 		let error = "";
 		switch (name) {
+			case "promotionalOptIn":
+				error = !value
+					? "You must opt-in to receive promotional content and updates"
+					: "";
+				break;
 			case "name":
 				error = value.trim() === "" ? "Name is required" : "";
 				break;
@@ -721,9 +728,10 @@ const AlertsPage: React.FC = () => {
 					reason: "",
 					availability: "",
 					smsOptIn: false,
-					emailOptIn: false,
+					emailOptIn: true,
 					privacyPolicyOptIn: false,
 					termsOfServiceOptIn: false,
+					promotionalOptIn: false,
 				});
 				setFile(null);
 			} else {
@@ -926,7 +934,7 @@ const AlertsPage: React.FC = () => {
 							>
 								<Form.Control asChild>
 									<input
-										title="Opt-in for SMS alerts"
+										title="Opt-in for SMS alerts, 2FA, customer support, account notifications, event updates, and targeted marketing"
 										type="checkbox"
 										checked={formData.smsOptIn}
 										onChange={handleInputChange}
@@ -935,7 +943,9 @@ const AlertsPage: React.FC = () => {
 									/>
 								</Form.Control>
 								<Form.Label className="text-sm">
-									Opt-in for SMS alerts
+									Opt-in for SMS alerts, 2FA, customer
+									support, account notifications, event
+									updates, and targeted marketing
 								</Form.Label>
 								<Info
 									className="ml-2 text-purple-300 cursor-pointer"
@@ -944,25 +954,26 @@ const AlertsPage: React.FC = () => {
 							</Form.Field>
 
 							<Form.Field
-								name="emailOptIn"
+								name="promotionalOptIn"
 								className="flex items-center"
 							>
 								<Form.Control asChild>
 									<input
-										title="Opt-in for email updates"
+										title="Opt-in for promotional content and updates"
 										type="checkbox"
-										checked={formData.emailOptIn}
+										checked={formData.promotionalOptIn}
 										onChange={handleInputChange}
-										name="emailOptIn"
+										name="promotionalOptIn"
 										className="mr-2"
 									/>
 								</Form.Control>
 								<Form.Label className="text-sm">
-									Opt-in for email updates
+									By checking this box, you agree to receive
+									promotional content and updates
 								</Form.Label>
 								<Info
 									className="ml-2 text-purple-300 cursor-pointer"
-									data-tooltip-id="email-optin-tooltip"
+									data-tooltip-id="promotional-optin-tooltip"
 								/>
 							</Form.Field>
 						</div>
@@ -1060,6 +1071,29 @@ const AlertsPage: React.FC = () => {
 					</p>
 				)}
 			</div>
+			<footer className="mt-8 text-center text-sm text-gray-400">
+				<p>NexusConjure</p>
+				<p>A comprehensive platform that leverages resources for:</p>
+				<ul className="list-disc list-inside">
+					<li>Domain management and website support</li>
+					<li>Healthcare communications and customer engagement</li>
+					<li>
+						Multi-purpose business communications (e.g., 2FA,
+						customer support, account notifications, event updates,
+						and targeted marketing)
+					</li>
+					<li>Public service announcements</li>
+				</ul>
+				<p className="mt-4">
+					<a
+						href="/about"
+						className="text-purple-300 hover:text-purple-100 underline"
+					>
+						Learn more about NexusConjure
+					</a>
+				</p>
+			</footer>
+
 			<Tooltip
 				id="sms-optin-tooltip"
 				place="top"
@@ -1067,9 +1101,9 @@ const AlertsPage: React.FC = () => {
 				className="max-w-xs whitespace-pre-line"
 			/>
 			<Tooltip
-				id="email-optin-tooltip"
+				id="promotional-optin-tooltip"
 				place="top"
-				content={emailTooltipContent}
+				content="By checking this box, you agree to receive promotional content and updates."
 				className="max-w-xs whitespace-pre-line"
 			/>
 			<Tooltip id="reason-tooltip" />

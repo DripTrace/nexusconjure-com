@@ -287,6 +287,7 @@ export interface EmailTemplateProps {
 	isPlatform: boolean;
 	privacyPolicyOptIn: boolean;
 	termsOfServiceOptIn: boolean;
+	promotionalOptIn: boolean;
 }
 
 const EmailTemplate: React.FC<EmailTemplateProps> = ({
@@ -303,6 +304,7 @@ const EmailTemplate: React.FC<EmailTemplateProps> = ({
 	isPlatform,
 	privacyPolicyOptIn,
 	termsOfServiceOptIn,
+	promotionalOptIn,
 }) => {
 	const primaryColor = "#4A90E2";
 	const secondaryColor = "#2C3E50";
@@ -456,9 +458,15 @@ const EmailTemplate: React.FC<EmailTemplateProps> = ({
 									SMS Notifications:{" "}
 									{smsOptIn ? "✅ Opted In" : "❌ Opted Out"}
 								</p>
-								<p style={{ margin: "5px 0 0 0" }}>
+								{/* <p style={{ margin: "5px 0 0 0" }}>
 									Email Updates:{" "}
 									{emailOptIn
+										? "✅ Opted In"
+										: "❌ Opted Out"}
+								</p> */}
+								<p style={{ margin: "5px 0 0 0" }}>
+									Email Updates:{" "}
+									{promotionalOptIn
 										? "✅ Opted In"
 										: "❌ Opted Out"}
 								</p>

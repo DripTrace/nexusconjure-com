@@ -2,7 +2,16 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Globe, Users, Zap, Award, Briefcase } from "lucide-react";
+import {
+	Globe,
+	Users,
+	Zap,
+	Award,
+	Briefcase,
+	Code,
+	ShieldCheck,
+	MessageSquare,
+} from "lucide-react";
 
 const AboutPage: React.FC = () => {
 	const sections = [
@@ -45,6 +54,39 @@ const AboutPage: React.FC = () => {
 		"Agriculture",
 	];
 
+	const useCases = [
+		{
+			title: "Domain Management",
+			content:
+				"Effortlessly manage your domain names, renewals, and transfers. Our platform provides a seamless experience for all your domain management needs.",
+			icon: <Globe className="w-8 h-8 text-primary" />,
+		},
+		{
+			title: "Website Support",
+			content:
+				"Get expert support for your website, from troubleshooting to optimization. Our team of experts is here to help you every step of the way.",
+			icon: <Code className="w-8 h-8 text-primary" />,
+		},
+		{
+			title: "Healthcare Communications",
+			content:
+				"Stay connected with your patients and healthcare providers through secure and HIPAA-compliant messaging. Our platform ensures privacy and security for all communications.",
+			icon: <MessageSquare className="w-8 h-8 text-primary" />,
+		},
+		{
+			title: "Business Communications",
+			content:
+				"Enhance your business communications with features like 2FA, customer support, account notifications, event updates, and targeted marketing. Our platform provides a comprehensive solution for all your communication needs.",
+			icon: <MessageSquare className="w-8 h-8 text-primary" />,
+		},
+		{
+			title: "Security and Privacy",
+			content:
+				"We prioritize security and privacy. Our platform uses advanced encryption techniques to protect your data, and we comply with all relevant regulations to ensure your privacy is protected.",
+			icon: <ShieldCheck className="w-8 h-8 text-primary" />,
+		},
+	];
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -64,7 +106,7 @@ const AboutPage: React.FC = () => {
 			<p className="text-center mb-12 text-muted-foreground max-w-2xl mx-auto">
 				NexusConjure is a pioneering platform that bridges the gap
 				between cutting-edge technology and diverse industry needs.
-				Weapos;re on a mission to democratize digital transformation
+				We&apos;re on a mission to democratize digital transformation
 				across all sectors.
 			</p>
 
@@ -85,6 +127,28 @@ const AboutPage: React.FC = () => {
 						</div>
 						<p className="text-muted-foreground">
 							{section.content}
+						</p>
+					</motion.div>
+				))}
+			</div>
+
+			<div className="grid md:grid-cols-2 gap-8 mb-12">
+				{useCases.map((useCase, index) => (
+					<motion.div
+						key={index}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: index * 0.1 }}
+						className="bg-card p-6 rounded-lg shadow-md"
+					>
+						<div className="flex items-center mb-4">
+							{useCase.icon}
+							<h2 className="text-2xl font-semibold ml-4">
+								{useCase.title}
+							</h2>
+						</div>
+						<p className="text-muted-foreground">
+							{useCase.content}
 						</p>
 					</motion.div>
 				))}
@@ -122,7 +186,7 @@ const AboutPage: React.FC = () => {
 					Ready to transform your industry with NexusConjure?
 				</p>
 				<motion.a
-					href="/contact"
+					href="/alerts"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					className="inline-flex items-center px-6 py-2 bg-primary text-primary-foreground rounded-full shadow-lg"

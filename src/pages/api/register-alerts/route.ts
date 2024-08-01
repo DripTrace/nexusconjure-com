@@ -144,6 +144,9 @@ export default async function handler(
 		const termsOfServiceOptIn = Array.isArray(fields.termsOfServiceOptIn)
 			? fields.termsOfServiceOptIn[0]
 			: fields.termsOfServiceOptIn;
+		const promotionalOptIn = Array.isArray(fields.promotionalOptIn)
+			? fields.promotionalOptIn[0]
+			: fields.promotionalOptIn;
 
 		const file = files.file ? (files.file[0] as File) : null;
 
@@ -177,6 +180,7 @@ export default async function handler(
 			availability,
 			privacyPolicyOptIn,
 			termsOfServiceOptIn,
+			promotionalOptIn,
 		});
 
 		// Create iCal event
@@ -234,6 +238,7 @@ export default async function handler(
 			isPlatform: true, // or false for customer email
 			privacyPolicyOptIn: privacyPolicyOptIn === "true",
 			termsOfServiceOptIn: termsOfServiceOptIn === "true",
+			promotionalOptIn: promotionalOptIn === "true",
 		};
 
 		const platformEmailHtml = renderToString(
@@ -280,7 +285,8 @@ export default async function handler(
 		// Send SMS if opted in
 		if (smsOptIn === "true") {
 			await twilioClient.messages.create({
-				body: `Thank you ${name} for registering with NexusConjure for ${reason}. Your appointment is scheduled for ${appointmentDate} at ${appointmentTime}. We're excited to have you on board! Reply with "STOP-TEXT" or "STOP-EMAIL" at anytime to opt out of automated text or email messages.`,
+				// body: `Thank you ${name} for registering with NexusConjure for ${reason}. Your appointment is scheduled for ${appointmentDate} at ${appointmentTime}. We're excited to have you on board! Reply with "STOP-TEXT" or "STOP-EMAIL" at anytime to opt out of automated text or email messages.`,
+				body: `Thank you ${name} for registering with NexusConjure for ${reason}. Your appointment is scheduled for ${appointmentDate} at ${appointmentTime}. We're excited to have you on board! Reply with "STOP-TEXT" at anytime to opt out of automated text messages.`,
 				from: twilioFromNumber,
 				to: phone,
 			});
