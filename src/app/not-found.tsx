@@ -218,7 +218,7 @@ const ProceduralTexture = () => {
 	);
 };
 
-const NotFoundPage: React.FC = () => {
+const NotFound: React.FC = () => {
 	return (
 		<div className="w-full h-screen flex flex-col items-center justify-center bg-black text-white overflow-hidden">
 			<div className="absolute inset-0 z-0">
@@ -282,4 +282,4 @@ const NotFoundPage: React.FC = () => {
 	);
 };
 
-export default NotFoundPage;
+export default NotFound;

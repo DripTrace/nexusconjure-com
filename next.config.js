@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	images: {
-		domains: [
-			"uploadthing.com",
-			"utfs.io",
-			"img.clerk.com",
-			"subdomain",
-			"files.stripe.com",
-			"nexusconjure.com",
-		],
-	},
+	// images: {
+	// 	domains: [
+	// 		"uploadthing.com",
+	// 		"utfs.io",
+	// 		"img.clerk.com",
+	// 		"subdomain",
+	// 		"files.stripe.com",
+	// 		"nexusconjure.com",
+	// 	],
+	// },
 	images: {
 		remotePatterns: [
 			{
@@ -45,7 +45,14 @@ const nextConfig = {
 			},
 		],
 	},
-
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			config.resolve.fallback = {
+				events: require.resolve("events"),
+			};
+		}
+		return config;
+	},
 	reactStrictMode: false,
 };
 
