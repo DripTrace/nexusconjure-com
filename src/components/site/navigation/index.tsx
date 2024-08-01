@@ -28,7 +28,7 @@ const Navigation = ({ user }: Props) => {
 						<Link href={"/pricing-details"}>Pricing</Link>
 					</li>
 					<li>
-						<Link href={"/platform-abouts"}>About</Link>
+						<Link href={"/about"}>About</Link>
 					</li>
 					<li>
 						<Link href={"/general-documentation"}>

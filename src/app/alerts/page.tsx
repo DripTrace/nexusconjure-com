@@ -1086,7 +1086,7 @@ const AlertsPage: React.FC = () => {
 				</ul>
 				<p className="mt-4">
 					<a
-						href="/platform-abouts"
+						href="/about"
 						className="text-purple-300 hover:text-purple-100 underline"
 					>
 						Learn more about NexusConjure
