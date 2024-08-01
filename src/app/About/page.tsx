@@ -107,7 +107,8 @@ const AboutPage: React.FC = () => {
 				NexusConjure is a pioneering platform that bridges the gap
 				between cutting-edge technology and diverse industry needs.
 				We&apos;re on a mission to democratize digital transformation
-				across all sectors.
+				across all sectors through the use of our comprehensive
+				interfaces.
 			</p>
 
 			<div className="grid md:grid-cols-2 gap-8 mb-12">
