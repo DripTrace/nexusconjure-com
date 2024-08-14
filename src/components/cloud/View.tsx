@@ -14,7 +14,9 @@ const View = ({ initialData }: { initialData: any }) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await fetch("/api/cloud/view/cloud-view");
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_URL}api/cloud/view/cloud-view`
+                );
                 const result = await response.json();
                 if (response.ok) {
                     const parsedData = parse(result.data);
