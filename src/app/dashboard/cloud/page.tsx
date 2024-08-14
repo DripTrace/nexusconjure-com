@@ -17,7 +17,8 @@ const CloudPage = async () => {
 
     return (
         <>
-            <View initialData={initialData} />
+            {/* <View initialData={initialData} /> */}
+            clouding
         </>
     );
 };
