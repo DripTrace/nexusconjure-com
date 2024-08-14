@@ -12,7 +12,7 @@ export default function FAQ() {
                 <p>
                     to{" "}
                     <a
-                        href="http://localhost:420/merchandise"
+                        href={`${process.env.MERCH_URL}`}
                         title="Obinsun"
                         target="_blank"
                         rel="noopener noreferrer"

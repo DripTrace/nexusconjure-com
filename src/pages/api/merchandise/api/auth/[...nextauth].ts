@@ -425,8 +425,8 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
         async redirect({ url, baseUrl }) {
-            const customBaseUrl = "http://localhost:420/merchandise";
-            const customApiUrl = "http://localhost:420/api/merchandise";
+            const customBaseUrl = `${process.env.MERCH_URL}`;
+            const customApiUrl = `${process.env.MERCH_API}`;
 
             console.log("DEFINED URL >>>>", url, "BASE URL >>>>", baseUrl);
 

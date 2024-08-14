@@ -161,7 +161,7 @@ const Layout = ({ children }: any) => {
                     <p className="text-gray-600 text-sm">
                         Powered by
                         <a
-                            href="http://localhost:420/merchandise"
+                            href={`${process.env.MERCH_URL}`}
                             title="Learn more about how this site was made"
                             target="_blank"
                             rel="noopener noreferrer"

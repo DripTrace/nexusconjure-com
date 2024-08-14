@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function AccountSetup() {
     const clientId = process.env.PRINTFUL_CLIENT_ID;
-    const redirectUrl = "http://localhost:420/api/printful/account-connect";
+    const redirectUrl = `${process.env.MERCH_API}/api/printful/account-connect`;
 
     const printfulLogin = `https://www.printful.com/oauth/authorize?grant_type=authorize&client_id=${clientId}&state={stateValue}&redirect_url=${redirectUrl}`;
 
