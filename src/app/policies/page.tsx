@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, ChevronRight, ExternalLink } from "lucide-react";
 import * as Accordion from "@radix-ui/react-accordion";
+import Navigation from "@/components/site/navigation";
 
 const PolicyPage: React.FC = () => {
 	const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -103,107 +104,113 @@ const PolicyPage: React.FC = () => {
 	];
 
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.5 }}
-			className="p-8 bg-background text-foreground"
-		>
+		<>
+			<Navigation />
 			<motion.div
-				initial={{ scale: 0.9 }}
-				animate={{ scale: 1 }}
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5 }}
-				className="flex items-center justify-center mb-8"
+				className="pl-8 pr-8 pb-8 pt-14 bg-background text-foreground"
 			>
-				<Shield className="text-primary w-16 h-16 mr-4" />
-				<h1 className="text-4xl font-bold text-primary">
-					NexusConjure Policies
-				</h1>
-			</motion.div>
-
-			<p className="text-center mb-8 text-muted-foreground max-w-2xl mx-auto">
-				At NexusConjure, we are committed to transparency, security, and
-				user empowerment. Our policies are designed to protect your
-				rights while ensuring the integrity and efficiency of our
-				platform across all the industries we serve.
-			</p>
-
-			<Accordion.Root
-				type="single"
-				collapsible
-				className="w-full max-w-3xl mx-auto"
-			>
-				{policyTopics.map((topic, index) => (
-					<motion.div
-						key={topic.id}
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.3, delay: index * 0.1 }}
-					>
-						<Accordion.Item
-							value={topic.id}
-							className="mb-4 bg-card rounded-lg shadow-md overflow-hidden"
-						>
-							<Accordion.Trigger
-								className="w-full px-6 py-4 text-left text-lg font-semibold hover:bg-muted flex justify-between items-center"
-								onClick={() =>
-									setActiveSection(
-										activeSection === topic.id
-											? null
-											: topic.id
-									)
-								}
-							>
-								<span>{topic.title}</span>
-								<ChevronRight
-									className={`w-5 h-5 transform transition-transform duration-200 ${
-										activeSection === topic.id
-											? "rotate-90"
-											: ""
-									}`}
-								/>
-							</Accordion.Trigger>
-							<Accordion.Content className="px-6 py-4 text-muted-foreground">
-								<p className="whitespace-pre-line">
-									{topic.content}
-								</p>
-							</Accordion.Content>
-						</Accordion.Item>
-					</motion.div>
-				))}
-			</Accordion.Root>
-
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.5, delay: 0.5 }}
-				className="mt-12 text-center"
-			>
-				<p className="mb-4 text-muted-foreground">
-					For more detailed information, please review our full{" "}
-					<a
-						href="/terms-of-service"
-						className="text-primary hover:underline"
-					>
-						Terms of Service
-					</a>{" "}
-					and{" "}
-					<a href="/privacy" className="text-primary hover:underline">
-						Privacy Policy
-					</a>
-					.
-				</p>
-				<motion.a
-					href="mailto:support@nexusconjure.com"
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					className="inline-flex items-center px-6 py-2 bg-primary text-primary-foreground rounded-full shadow-lg"
+				<motion.div
+					initial={{ scale: 0.9 }}
+					animate={{ scale: 1 }}
+					transition={{ duration: 0.5 }}
+					className="flex items-center justify-center mb-8"
 				>
-					Contact Support
-					<ExternalLink className="ml-2 h-4 w-4" />
-				</motion.a>
+					<Shield className="text-primary w-16 h-16 mr-4" />
+					<h1 className="text-4xl font-bold text-primary">
+						NexusConjure Policies
+					</h1>
+				</motion.div>
+
+				<p className="text-center mb-8 text-muted-foreground max-w-2xl mx-auto">
+					At NexusConjure, we are committed to transparency, security,
+					and user empowerment. Our policies are designed to protect
+					your rights while ensuring the integrity and efficiency of
+					our platform across all the industries we serve.
+				</p>
+
+				<Accordion.Root
+					type="single"
+					collapsible
+					className="w-full max-w-3xl mx-auto"
+				>
+					{policyTopics.map((topic, index) => (
+						<motion.div
+							key={topic.id}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.3, delay: index * 0.1 }}
+						>
+							<Accordion.Item
+								value={topic.id}
+								className="mb-4 bg-card rounded-lg shadow-md overflow-hidden"
+							>
+								<Accordion.Trigger
+									className="w-full px-6 py-4 text-left text-lg font-semibold hover:bg-muted flex justify-between items-center"
+									onClick={() =>
+										setActiveSection(
+											activeSection === topic.id
+												? null
+												: topic.id
+										)
+									}
+								>
+									<span>{topic.title}</span>
+									<ChevronRight
+										className={`w-5 h-5 transform transition-transform duration-200 ${
+											activeSection === topic.id
+												? "rotate-90"
+												: ""
+										}`}
+									/>
+								</Accordion.Trigger>
+								<Accordion.Content className="px-6 py-4 text-muted-foreground">
+									<p className="whitespace-pre-line">
+										{topic.content}
+									</p>
+								</Accordion.Content>
+							</Accordion.Item>
+						</motion.div>
+					))}
+				</Accordion.Root>
+
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5, delay: 0.5 }}
+					className="mt-12 text-center"
+				>
+					<p className="mb-4 text-muted-foreground">
+						For more detailed information, please review our full{" "}
+						<a
+							href="/terms-of-service"
+							className="text-primary hover:underline"
+						>
+							Terms of Service
+						</a>{" "}
+						and{" "}
+						<a
+							href="/privacy"
+							className="text-primary hover:underline"
+						>
+							Privacy Policy
+						</a>
+						.
+					</p>
+					<motion.a
+						href="mailto:support@nexusconjure.com"
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
+						className="inline-flex items-center px-6 py-2 bg-primary text-primary-foreground rounded-full shadow-lg"
+					>
+						Contact Support
+						<ExternalLink className="ml-2 h-4 w-4" />
+					</motion.a>
+				</motion.div>
 			</motion.div>
-		</motion.div>
+		</>
 	);
 };
 

@@ -149,3 +149,21 @@ export type FunnelsForSubAccount = Prisma.PromiseReturnType<
 >[0];
 
 export type UpsertFunnelPage = Prisma.FunnelPageCreateWithoutFunnelInput;
+
+export type Location = {
+	city: string;
+	region: string;
+	country: string;
+};
+
+export type DeviceInfo = {
+	device: string;
+	browser: string;
+	ip: string;
+	location: Location;
+	error: string;
+	language: string;
+	timezone: string;
+	operatingSystem: string;
+	connection: Navigator["connection"];
+};

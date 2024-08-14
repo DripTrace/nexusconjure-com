@@ -2,6 +2,7 @@
 import Stripe from "stripe";
 import { db } from "../db";
 import { stripe } from ".";
+// import { Price } from "@/components/landing/LandingComponent";
 
 export const subscriptionCreated = async (
 	subscription: Stripe.Subscription,
@@ -61,3 +62,18 @@ export const getConnectAccountProducts = async (stripeAccount: string) => {
 	);
 	return products.data;
 };
+
+// export async function getPrices(): Promise<Price[]> {
+// 	const prices = await stripe.prices.list({
+// 		product: process.env.NEXT_NEXUSCONJURE_PRODUCT_ID,
+// 		active: true,
+// 	});
+// 	return prices.data.map((price) => ({
+// 		id: price.id,
+// 		nickname: price.nickname,
+// 		unit_amount: price.unit_amount,
+// 		recurring: price.recurring
+// 			? { interval: price.recurring.interval }
+// 			: null,
+// 	}));
+// }

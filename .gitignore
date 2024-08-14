@@ -37,3 +37,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/lib/data/keys/gcp_service_key.json
+/src/lib/data/keys/nexusconjure-elite_credentials.csv
+src/configs/aws.conf
+
+/src/pages/api/merchandise/keys/photo-gallery-upload-firebase-adminsdk-wnbhz-ae0e426bf6.json

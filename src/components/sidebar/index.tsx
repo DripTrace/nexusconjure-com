@@ -24,7 +24,9 @@ const Sidebar = async ({ id, type }: Props) => {
 	const isWhiteLabeledAgency = user.Agency.whiteLabel;
 	if (!details) return;
 
-	let sideBarLogo = user.Agency.agencyLogo || "/assets/nexusconjure-logo.svg";
+	let sideBarLogo =
+		user.Agency.agencyLogo ||
+		"/assets/nexusconjurecom-vector-optimized.svg";
 
 	if (!isWhiteLabeledAgency) {
 		if (type === "subaccount") {
