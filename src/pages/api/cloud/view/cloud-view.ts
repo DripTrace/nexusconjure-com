@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { stringify } from "flatted";
-import { handleWireguardView } from "@/actions/cloud/wireguard";
-import { handleTrueNASView } from "@/actions/cloud/truenas";
+// import { handleWireguardView } from "@/actions/cloud/wireguard";
+// import { handleTrueNASView } from "@/actions/cloud/truenas";
 import handleAzureView from "@/actions/cloud/azure";
 import { handleGcpView } from "@/actions/cloud/gcp";
 import { handleAwsView } from "@/actions/cloud/aws";
@@ -17,8 +17,8 @@ export default async function handler(
     if (req.method === "GET") {
         try {
             const [
-                wireguard,
-                truenas,
+                // wireguard,
+                // truenas,
                 azure,
                 gcp,
                 aws,
@@ -27,8 +27,8 @@ export default async function handler(
                 digitalOcean,
                 proxmox,
             ] = await Promise.all([
-                handleWireguardView(),
-                handleTrueNASView(),
+                // handleWireguardView(),
+                // handleTrueNASView(),
                 handleAzureView(),
                 handleGcpView(),
                 handleAwsView(),
@@ -39,8 +39,8 @@ export default async function handler(
             ]);
 
             const cloudData = {
-                wireguard,
-                truenas,
+                // wireguard,
+                // truenas,
                 azure,
                 gcp,
                 aws,

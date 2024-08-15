@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import View from "@/components/cloud/View";
 import { parse } from "flatted";
