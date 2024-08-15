@@ -7,12 +7,12 @@ import { getTrueNASConfig } from "@/utils/trunasClient";
 import TrueNASConfig from "./TrueNASConfig";
 
 export default async function TrunasPage() {
-	const result = await getTrueNASConfig();
+    // const result = await getTrueNASConfig();
 
-	return (
-		<div>
-			<h1>TrueNAS Configuration</h1>
-			<TrueNASConfig result={result} />
-		</div>
-	);
+    return (
+        <div>
+            <h1>TrueNAS Configuration</h1>
+            {/* <TrueNASConfig result={result} /> */}
+        </div>
+    );
 }
