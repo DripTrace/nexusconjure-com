@@ -217,8 +217,8 @@ const ASCIITree: React.FC<ASCIITreeProps> = ({ data }) => {
 
     const expandAll = () => {
         const allSections = [
-            "wireguard",
-            "truenas",
+            // "wireguard",
+            // "truenas",
             "azure",
             "gcp",
             "aws",
