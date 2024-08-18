@@ -292,7 +292,7 @@ const ASCIITree: React.FC<ASCIITreeProps> = ({ data }) => {
 				</AnimatedLine>
 			</ExpandableSection> */}
 
-            <ExpandableSection
+            {/* <ExpandableSection
                 title="TrueNAS Configuration"
                 isExpanded={expandedSections["truenas"]}
                 onToggle={() => toggleSection("truenas")}
@@ -355,7 +355,7 @@ const ASCIITree: React.FC<ASCIITreeProps> = ({ data }) => {
                         )}
                     </React.Fragment>
                 ))}
-            </ExpandableSection>
+            </ExpandableSection> */}
 
             <AnimatedLine>
                 <SpecialChar>┣━ ☁</SpecialChar> Cloud Providers
