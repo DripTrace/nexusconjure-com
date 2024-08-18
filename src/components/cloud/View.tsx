@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { parse } from "flatted";
 import ASCIITree from "./ASCIITree";
-import ASCIITreeVariation from "./ASCIITreeVariation";
+// import ASCIITreeVariation from "./ASCIITreeVariation";
 
 const View = ({ initialData }: { initialData: any }) => {
     const [data, setData] = useState<any>(initialData);
