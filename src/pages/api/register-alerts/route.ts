@@ -1492,8 +1492,8 @@ export const smtpHost = local.SMTP_HOST as string;
 export const smtpPort = local.SMTP_PORT as string;
 
 const twilioClient = twilio(local.TWILIO_ACCOUNT_SID, local.TWILIO_AUTH_TOKEN);
-const twilioFromNumber = local.TWILIO_PHONE_NUMBER;
-const businessPhoneNumber = "+19092895924";
+const twilioFromNumber = local.TWILIO_PHONE_NUMBER as string;
+const businessPhoneNumber = local.TWILIO_PHONE_RECIPIENT as string;
 
 async function compressFile(file: File): Promise<string> {
     const zipFilePath = path.join("/tmp", `${file.originalFilename}.zip`);
