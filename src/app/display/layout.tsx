@@ -50,8 +50,8 @@ export default function RootLayout({ children }: LayoutProps) {
     const redirect = () => setClipDisplayed(!clipDisplayed);
 
     return (
-        <html lang="en">
-            <body>
+        <html lang="en" className="display-html">
+            <body className="display-body">
                 <BoogeyStickman
                     pointerTransition={pointerTransition}
                     pointerFix={pointerTransition}

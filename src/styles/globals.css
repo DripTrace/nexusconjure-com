@@ -2117,8 +2117,8 @@ body {
     }
 }
 
-html,
-body {
+.display-html,
+.display-body {
     overflow: hidden;
 
     top: 0;
