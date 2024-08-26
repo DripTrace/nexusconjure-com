@@ -8,7 +8,12 @@ import MomAndDad from "./MomAndDad";
 import NoSmoking from "./NoSmoking";
 import Drinks from "./Drinks";
 import PoliciesShell from "./PoliciesShell";
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
+
+export interface ServicesProps {
+    fill: string;
+    className: string;
+}
 
 const Policies = forwardRef<HTMLDivElement>((props, ref) => {
     return (
