@@ -43,3 +43,5 @@ next-env.d.ts
 src/configs/aws.conf
 
 /src/pages/api/merchandise/keys/photo-gallery-upload-firebase-adminsdk-wnbhz-ae0e426bf6.json
+
+.idea

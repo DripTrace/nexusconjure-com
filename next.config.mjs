@@ -348,6 +348,66 @@ const nextConfig = {
                 hostname: "firebasestorage.googleapis.com",
                 pathname: "**",
             },
+            {
+                protocol: "https",
+                hostname: "links.papareact.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.facebook.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.instagram.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.linkedin.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "twitter.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "logos-world.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "media.corporate-ir.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "assets.turbologo.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "ecstatic-leavitt-a2e426.netlify.app",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "nervous-ramanujan-132263.netlify.app",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "assetshuluimcom-a.akamaihd.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "repository-images.githubusercontent.com",
+                pathname: "**",
+            },
         ],
         disableStaticImages: true,
     },

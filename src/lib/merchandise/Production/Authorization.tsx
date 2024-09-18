@@ -1887,7 +1887,7 @@ const Authorization = ({ closeModal }: AuthorizationProps) => {
             className="relative top-[0%] left-0 flex justify-center align-center"
         >
             <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]">
-                <div className="form-container relative top-0 left-0 vs:w-[15em] xs:w-[20em] mobile-l:w-[21em] tablet:w-[22em] laptop:-w-[23em] laptop-l:w-[24em] 2xl:w-[25em min-h-[25em] bg-gray-300/90 dark:bg-gray-800/90 border rounded-[0.625em] flex justify-center align-center backdrop-blur-[5px] shadow-glass3 glass-container border-white/50">
+                <div className="relative top-0 left-0 vs:w-[15em] xs:w-[20em] mobile-l:w-[21em] tablet:w-[22em] laptop:-w-[23em] laptop-l:w-[24em] 2xl:w-[25em min-h-[25em] bg-gray-300/90 dark:bg-gray-800/90 border rounded-[0.625em] flex justify-center align-center backdrop-blur-[5px] shadow-glass3 glass-container border-white/50">
                     <div className="form-body">
                         <button onClick={closeModal}>Close Modal</button>
                         <h2 className="form-header">

@@ -1,14 +1,14 @@
-Based on the comprehensive discussion around **NexusConjure.com** and its various aspects, here's a proposed README.md to capture the essence of your 
+Based on the comprehensive discussion around **NexusConjure.com** and its various aspects, here's a proposed README.md to capture the essence of your
 project, formatted with Markdown for GitHub:
 
-```markdown
+````markdown
 # NexusConjure.com 🌟
 
 Welcome to **NexusConjure.com** - The Ultimate SaaS Platform for Digital Transformation and Innovation. 🚀
 
 ## About NexusConjure 📖
 
-NexusConjure is a cutting-edge B2B2B SaaS platform designed to revolutionize the digital landscape. We offer a suite of services tailored for agencies, 
+NexusConjure is a cutting-edge B2B2B SaaS platform designed to revolutionize the digital landscape. We offer a suite of services tailored for agencies,
 sub-accounts, and end-users, focusing on streamlining operations, enhancing digital presence, and fostering growth. 🌱
 
 ### Key Features ✨
@@ -26,14 +26,15 @@ sub-accounts, and end-users, focusing on streamlining operations, enhancing digi
 To start using NexusConjure, clone this repository and follow the setup instructions:
 
 ```bash
-git clone https://github.com/driptrace/NexusConjure/nexusconjure.git
+git clone https://github.com/driptrace/DripTrace/nexusconjure.git
 cd nexusconjure
 # Follow setup instructions
 ```
+````
 
 ### Our Mission 🌏
 
-At NexusConjure, we are dedicated to empowering businesses with the tools and knowledge to thrive in the digital era. We believe in innovation, 
+At NexusConjure, we are dedicated to empowering businesses with the tools and knowledge to thrive in the digital era. We believe in innovation,
 collaboration, and the transformative power of technology.
 
 ### Support & Community 💬
@@ -55,7 +56,9 @@ NexusConjure is proudly open-sourced under the MIT license.
 ---
 
 Made with ❤️ and 🚀 by [NexusConjure Team](https://nexusconjure.com/team). Join us in redefining the digital landscape!
+
 ```
 
-This README.md provides a solid starting point, capturing the essence of NexusConjure.com's mission, features, and community engagement. Adjustments can be 
+This README.md provides a solid starting point, capturing the essence of NexusConjure.com's mission, features, and community engagement. Adjustments can be
 made to suit the evolving nature of the project and its community.
+```
