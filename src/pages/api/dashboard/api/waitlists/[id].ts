@@ -18,7 +18,6 @@ export default async function handler(
             const { data: getData, status: getStatus } = await ApiProxy.get(
                 endpoint,
                 req
-                // token
             );
             return res.status(getStatus).json(getData);
 
@@ -26,8 +25,7 @@ export default async function handler(
             const { data: putData, status: putStatus } = await ApiProxy.put(
                 endpoint,
                 req,
-                req.body,
-                token
+                req.body
             );
             return res.status(putStatus).json(putData);
 
