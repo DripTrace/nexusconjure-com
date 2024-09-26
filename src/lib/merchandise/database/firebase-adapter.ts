@@ -83,9 +83,9 @@ export function FirebaseAdapter(client: FirebaseClient): Adapter {
     ).withConverter<VerificationToken>(format);
 
     return {
-        async createUser(user) {
+        async createUser(user: Omit<AdapterUser, "id">) {
             const { id } = await addDoc(Users, user);
-            return { ...(user as any), id };
+            return { ...user, id };
         },
         async getUser(id) {
             const userDoc = await getDoc(doc(Users, id));
