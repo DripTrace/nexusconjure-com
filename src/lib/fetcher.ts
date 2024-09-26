@@ -1,38 +1,26 @@
-// const fetcher = async () =>  {
-
-//     const res = await fetch(url)
-
-//     // If the status code is not in the range 200-299,
-//     // we still try to parse and throw it.
-//     if (!res.ok) {
-//       const error = new Error('An error occurred while fetching the data.')
-//       // Attach extra info to the error object.
-//       error.info = await res.json()
-//       error.status = res.status
-//       throw error
-//     }
-
-//     return res.json()
-//   }
-
-// export default fetcher
+import { getAuthToken } from "@/components/layout/authProvider";
 
 const fetcher = async (url: string) => {
-	const res = await fetch(url);
-
-	// If the status code is not in the range 200-299,
-	// we still try to parse and throw it.
-	if (!res.ok) {
-		const error: any = new Error(
-			"An error occurred while fetching the data."
-		);
-		// Attach extra info to the error object.
-		error.info = await res.json();
-		error.status = res.status;
-		throw error;
-	}
-
-	return res.json();
+    const token = getAuthToken();
+    console.log("Fetcher token:", token);
+    try {
+        const response = await fetch(url, {
+            headers: {
+                // Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+        });
+        if (!response.ok) {
+            console.error("Fetch error status:", response.status);
+            console.error("Fetch error text:", await response.text());
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    } catch (error) {
+        console.error("Fetch error:", error);
+        throw error;
+    }
 };
 
 export default fetcher;

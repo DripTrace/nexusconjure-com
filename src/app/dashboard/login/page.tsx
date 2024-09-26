@@ -1,150 +1,87 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/layout/authProvider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/components/layout/authProvider";
-// import { useAuth } from "@/components/authProvider"
 
-const LOGIN_URL = "/dashboard/api/login/";
+const LOGIN_URL = "/api/dashboard/api/login/route";
 
-// export default function Page() {
-//   const auth = useAuth()
-//   async function handleSubmit (event) {
-//         event.preventDefault()
-//         console.log(event, event.target)
-//         const formData = new FormData(event.target)
-//         const objectFromForm = Object.fromEntries(formData)
-//         const jsonData = JSON.stringify(objectFromForm)
-//         const requestOptions = {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: jsonData
-//         }
-//         const response = await fetch(LOGIN_URL, requestOptions)
-//         let data = {}
-//         try {
-//           data = await response.json()
-//         } catch (error) {
+export default function LoginPage() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const router = useRouter();
+    const auth = useAuth();
 
-//         }
-//         // const data = await response.json()
-//         if (response.ok) {
-//             console.log("logged in")
-//             auth.login(data?.username)
-//         } else {
-//           console.log(await response.json())
-//         }
-//     }
+    useEffect(() => {
+        if (auth.isAuthenticated) {
+            router.push("/dashboard");
+        }
+    }, [auth.isAuthenticated, router]);
 
-interface LoginResponse {
-	username?: string;
-	// Add other properties as needed
-}
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setError("");
 
-export default function Page() {
-	const auth = useAuth();
+        const response = await fetch(LOGIN_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        });
 
-	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		const formData = new FormData(event.target as HTMLFormElement);
-		const objectFromForm = Object.fromEntries(formData);
-		const jsonData = JSON.stringify(objectFromForm);
+        if (response.ok) {
+            const data = await response.json();
+            auth.login(data.username, data.access);
+            router.push("/dashboard");
+        } else {
+            setError("Invalid credentials");
+        }
+    }
 
-		console.log("LOGIN JSON DATA >>>", jsonData);
+    if (auth.loading) {
+        return <div>Loading...</div>;
+    }
 
-		const requestOptions = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: jsonData,
-		};
+    if (auth.isAuthenticated) {
+        return null; // or a loading indicator if you prefer
+    }
 
-		const response = await fetch(LOGIN_URL, requestOptions);
-		let data: LoginResponse = {};
-
-		try {
-			data = await response.json();
-		} catch (error) {
-			console.error("Error parsing JSON", error);
-		}
-
-		if (response.ok) {
-			console.log("logged in");
-			if (data.username) {
-				auth.login(data.username);
-			}
-		} else {
-			console.log(await response.json());
-		}
-	}
-	return (
-		<div className="w-full lg:grid lg:min-h-[85vh]  lg:grid-cols-2 xl:min-h-[90vh]">
-			<div className="flex items-center justify-center py-12">
-				<div className="mx-auto grid w-[350px] gap-6">
-					<div className="grid gap-2 text-center">
-						<h1 className="text-3xl font-bold">Login</h1>
-						<p className="text-balance text-muted-foreground">
-							Enter your email below to login to your account
-						</p>
-					</div>
-					<div className="grid gap-4">
-						<form onSubmit={handleSubmit}>
-							<div className="grid gap-2">
-								<Label htmlFor="username">Username</Label>
-								<Input
-									id="username"
-									type="username"
-									name="username"
-									placeholder="Your username"
-									required
-								/>
-							</div>
-							<div className="grid gap-2">
-								<div className="flex items-center">
-									<Label htmlFor="password">Password</Label>
-									<Link
-										href="/dashboard/forgot-password"
-										className="hidden"
-									>
-										Forgot your password?
-									</Link>
-								</div>
-								<Input
-									id="password"
-									name="password"
-									type="password"
-									required
-								/>
-							</div>
-							<Button type="submit" className="w-full">
-								Login
-							</Button>
-						</form>
-					</div>
-					<div className="mt-4 text-center text-sm">
-						Don&apos;t have an account?{" "}
-						<Link href="#" className="underline">
-							Sign up
-						</Link>
-					</div>
-				</div>
-			</div>
-			<div className="hidden bg-muted lg:block">
-				<Image
-					src="/placeholder.svg"
-					alt="Image"
-					width="1920"
-					height="1080"
-					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-				/>
-			</div>
-		</div>
-	);
+    return (
+        <div className="h-[95vh] flex items-center justify-center">
+            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+                <h1 className="text-2xl font-bold mb-6">Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <Label htmlFor="username">Username</Label>
+                        <Input
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    {error && <p className="text-red-500 mb-4">{error}</p>}
+                    <Button type="submit" className="w-full">
+                        Login
+                    </Button>
+                </form>
+            </div>
+        </div>
+    );
 }

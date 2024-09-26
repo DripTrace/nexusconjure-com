@@ -23,27 +23,27 @@ import useSWR from "swr";
 import { WaitlistCard } from "../card";
 
 interface PageProps {
-	params: {
-		id: string;
-	};
+    params: {
+        id: string;
+    };
 }
 
 export default function Page({ params }: PageProps) {
-	const lookupId = params ? params.id : "0";
-	const { data, error, isLoading } = useSWR(
-		`/dashboard/api/waitlists/${lookupId}`,
-		fetcher
-	);
+    const lookupId = params ? params.id : "0";
+    const { data, error, isLoading } = useSWR(
+        `/api/dashboard/api/waitlists/${lookupId}`,
+        fetcher
+    );
 
-	console.log(data, error, isLoading);
+    console.log(data, error, isLoading);
 
-	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			{isLoading ? (
-				<div>Loading</div>
-			) : (
-				<WaitlistCard waitlistEvent={data} />
-			)}
-		</main>
-	);
+    return (
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            {isLoading ? (
+                <div>Loading</div>
+            ) : (
+                <WaitlistCard waitlistEvent={data} />
+            )}
+        </main>
+    );
 }
