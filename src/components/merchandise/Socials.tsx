@@ -8,20 +8,20 @@ import {
     FaEthereum,
 } from "react-icons/fa";
 import { BsInstagram, BsReddit, BsYoutube, BsSnapchat } from "react-icons/bs";
-import {
-    SiGmail,
-    //   SiYahoo,
-    SiMicrosoftoutlook,
-    SiProtonmail,
-    SiVenmo,
-    SiPaypal,
-    SiBankofamerica,
-    SiChase,
-    SiDiscover,
-    SiAmericanexpress,
-    SiCashapp,
-    SiZelle,
-} from "react-icons/si";
+// import {
+//     SiGmail,
+//     //   SiYahoo,
+//     SiMicrosoftoutlook,
+//     SiProtonmail,
+//     SiVenmo,
+//     SiPaypal,
+//     SiBankofamerica,
+//     SiChase,
+//     SiDiscover,
+//     SiAmericanexpress,
+//     SiCashapp,
+//     SiZelle,
+// } from "react-icons/si";
 
 const Socials = () => {
     return (
