@@ -33,7 +33,8 @@ export const spec = {
                                         type: "string",
                                         description: "Prompt",
                                         example:
-                                            "A melodic dubstep tune beating to the echos of space bass. There is a buildup to a heavy drop.",
+                                            // "A melodic dubstep tune beating to the echos of space bass. There is a buildup to a heavy drop.",
+                                            "a rainbow river flowing with the wind",
                                     },
                                     make_instrumental: {
                                         type: "boolean",

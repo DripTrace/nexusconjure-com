@@ -9,6 +9,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "prebuild": "ts-node src/lib/utils/generateFontLoader.ts",
+        "predev": "tsc --skipLibCheck src/lib/utils/generateFontLoader.ts",
+        "predevting": "node --loader ts-node/esm src/lib/utils/fontLoader.ts",
         "dev": "next dev -p 420",
         "build": "next build",
         "start": "next start",

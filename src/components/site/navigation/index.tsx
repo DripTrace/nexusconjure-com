@@ -1,6 +1,7 @@
 "use client";
 
 import { ModeToggle } from "@/components/global/mode-toggle";
+import NexusConjureWhite from "@/components/logo/NexusConjureWhite";
 import { UserButton } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import Image from "next/image";
@@ -21,15 +22,20 @@ const Navigation = ({ user }: Props) => {
     return (
         <div className="navigation-container">
             <Link href="/" className="navigation-logo">
-                <Image
+                {/* <Image
                     src={
                         "./assets/nexusconjurecom-vector-optimized-inverted.svg"
                     }
                     width={40}
                     height={40}
-                    alt="NexusConjure logo"
+                    alt="NexusConjure logo"`
                     className="navigation-logo-image"
+                /> */}
+                <NexusConjureWhite
+                    id="nexusconjure-logo"
+                    className="w-[2rem] h-[2rem] navigation-logo-image"
                 />
+
                 <span className="navigation-logo-text">NexusConjure</span>
             </Link>
             <nav className="navigation-desktop">
