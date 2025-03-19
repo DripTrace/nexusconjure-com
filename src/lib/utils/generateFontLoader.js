@@ -100,3 +100,18 @@ function generateFontDeclarations() {
 var generatedCode = generateFontDeclarations();
 fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
 fs.writeFileSync(OUTPUT_FILE, generatedCode);
+// function getUniqueVarName(baseName: string, weight: string, style: string, index: number): string {
+//     return `font_${baseName}_${weight}_${style}_${index}`;
+// }
+// // When creating variants
+// fontFiles.forEach((file, index) => {
+//     const isItalic = file.toLowerCase().includes('italic');
+//     const weight = getWeightFromFilename(file);
+//     const varName = getUniqueVarName(
+//         item.replace(/[^a-zA-Z0-9]/g, "_"),
+//         weight,
+//         isItalic ? "italic" : "normal",
+//         index
+//     );
+//     // ... rest of the code
+// });
